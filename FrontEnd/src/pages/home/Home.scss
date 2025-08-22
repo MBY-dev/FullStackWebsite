@@ -1,0 +1,24 @@
+@use "../../styles/themeMixin.scss" as *;
+@use "../../styles/themes.scss" as themes;
+
+
+.home{
+    @include themify(themes.$themes) {
+        background-color: themed('bgSoft');
+        color: themed('textColor');
+
+}
+display: flex;
+height: 100%;
+flex-direction: column;
+
+ @include mobile {
+      padding: 10px;
+    }
+
+    @include tablet{
+      padding: 20px;
+    }
+  
+}
+

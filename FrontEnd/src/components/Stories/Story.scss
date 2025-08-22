@@ -1,0 +1,160 @@
+@use "../../styles/themeMixin.scss" as *;
+@use "../../styles/themes.scss" as themes;
+
+// Değişkenler tanımlamak kodu daha yönetilebilir kılar O yüzden burada tanımlıyoruz
+$story-width: 150px;
+$story-width-tablet: 100px;
+$story-height-tablet: 150px;
+$story-width-mobile: 50px;
+$story-height-mobile: 50px;
+$story-gap: 10px;
+$visible-stories: 5;
+
+.stories {
+    @include themify(themes.$themes) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        margin-top: 20px;
+
+        // Butonların konumunu ve stilini iyileştirelim
+        .leftButton,
+        .rightButton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+            @include tablet {
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+            }
+
+            @include mobile {
+                width: 20px;
+                height: 20px;
+                font-size: 14px;
+            }
+        }
+
+        .leftButton {
+            left: 10px;
+
+            @include mobile {
+                left: -2px;
+            }
+        }
+
+        .rightButton {
+            right: 0px;
+        }
+
+        .container {
+            display: flex;
+            width: calc(#{$visible-stories} * #{$story-width} + (#{$visible-stories} - 1) * #{$story-gap});
+
+            height: 220px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+
+             @include tablet {
+                width: calc(#{$visible-stories} * #{$story-width-tablet} + (#{$visible-stories} - 1) * #{$story-gap});
+                height: 150px;
+            }
+
+
+
+            @include mobile {
+                width: calc(#{$visible-stories} * #{$story-width-mobile} + (#{$visible-stories} - 1) * #{$story-gap});
+                height: 50px;
+            }
+
+           
+        }
+
+        .slider {
+            display: flex;
+            gap: $story-gap;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .story {
+            width: $story-width;
+            flex-shrink: 0; // BU ÇOK ÖNEMLİ! Hikayelerin küçülmesini engeller.
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+
+            @include tablet {
+                width: $story-width-tablet;
+                height: $story-height-tablet;
+            }
+
+            @include mobile {
+                width: $story-width-mobile;
+                height: $story-height-mobile;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            span {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                color: white;
+                font-weight: 500;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); // okunabilirliği artırır
+            }
+
+            button {
+                position: absolute;
+                bottom: 35px; // span ile çakışmasın
+                right: 10px;
+                transform: translatey(100%);
+                background-color: #5271ff;
+                color: white;
+                border: 2px solid white;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                font-size: 24px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                padding: 0;
+                line-height: 1;
+
+                @include tablet {
+                    bottom: 20px; // tablet için konumu ayarlıyoruz
+                }
+
+                @include mobile {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}
